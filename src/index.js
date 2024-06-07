@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import ReactDom from "react-dom/client";
+import "./index.css";
 
 // eslint-disable-next-line no-unused-vars
 const pizzaData = [
@@ -50,12 +51,42 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
-      <h1>hello react</h1>
-      <Pizza />
-      <Pizza />
-      <Pizza />
+    <div className="container">
+      <Header />
+      <Menu />
+      <Footer />
     </div>
+  );
+}
+
+function Header() {
+  return (
+    <header className="header">
+      <h1>Fast React Pizza Co. </h1>
+    </header>
+  );
+}
+function Menu() {
+  return (
+    <main className="menu">
+      <h2>our menu</h2>
+      <Pizza />
+      <Pizza />
+      <Pizza />
+      <Pizza />
+    </main>
+  );
+}
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 8;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+  console.log(isOpen);
+  // if (hour >= openHour && hour <= closeHour) alert("we're currently Open!");
+  // else alert("sorry we're closed");
+  return (
+    <footer className="footer">{new Date().toLocaleTimeString()}. we're currently open</footer>
   );
 }
 
@@ -63,7 +94,7 @@ function Pizza() {
   return (
     <div>
       <img src="pizzas/spinaci.jpg" />
-      <h2>Pizza Spinaci</h2>
+      <h3>Pizza Spinaci</h3>
       <p>Tomato, mozarella, spinach, and ricotta cheese</p>
     </div>
   );
