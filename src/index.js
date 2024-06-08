@@ -67,13 +67,32 @@ function Header() {
   );
 }
 function Menu() {
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>our menu</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-      <Pizza />
+      {numPizzas > 0 ? (
+        <ul className="pizzas">
+          {pizzaData.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>we still working on the menu</p>
+      )}
+      {/* <Pizza
+        name="Pizza spinaci"
+        ingredient="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={10}
+      />
+      <Pizza
+        name="Pizza spinaci"
+        ingredient="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={10}
+      /> */}
     </main>
   );
 }
@@ -86,17 +105,36 @@ function Footer() {
   // if (hour >= openHour && hour <= closeHour) alert("we're currently Open!");
   // else alert("sorry we're closed");
   return (
-    <footer className="footer">{new Date().toLocaleTimeString()}. we're currently open</footer>
+    <footer className="footer">
+      {isOpen ? ( <Order closeHour={closeHour}/>
+        
+      ) : (
+        <p>
+          we happy to welcom u between {openHour}:00 and {closeHour}:00{" "}
+        </p>
+      )}
+    </footer>
   );
 }
 
-function Pizza() {
+function Order(props){
+  return <div className="order">
+          <p>we're open untill {props.closeHour}:00. Come visit us or order online</p>
+          <button className="btn">Order</button>
+        </div>
+}
+
+function Pizza(props) {
+  if (props.pizzaObj.soldOut) return null;
   return (
-    <div>
-      <img src="pizzas/spinaci.jpg" />
-      <h3>Pizza Spinaci</h3>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-    </div>
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.name} />
+      <div>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredient}</p>
+        <span>{props.pizzaObj.price}</span>
+      </div>
+    </li>
   );
 }
 
